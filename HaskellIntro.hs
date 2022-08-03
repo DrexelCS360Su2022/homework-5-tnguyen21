@@ -73,11 +73,15 @@ h n = n - (pow h 3 (n-1))
 
 -- family of D sequences to demonstrate partial application
 d :: Int -> Integer -> Integer
-d i 0 = 0
+d _ 0 = 0
 d i n = n - (pow (d i) i (n-1))
 
 --
 -- Problem 3
 --
 
-powerSet = error "powerSet not yet defined"
+powerSet :: Ord a => Set a -> Set (Set a)
+powerSet s
+    | (size s) == 0 = insert s empty
+    | otherwise = let (x,xs) = split s
+        in (powerSet xs) `union` (mapSet (insert x) (powerSet xs))
