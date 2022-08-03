@@ -14,23 +14,44 @@ isThisWorking = "Yes"
 -- Problem 1
 --
 
+-- get last digit of integer value
 lastDigit :: Integer -> Integer
-lastDigit = error "lastDigit not yet defined"
+lastDigit n = n `mod` 10
 
 dropLastDigit :: Integer -> Integer
-dropLastDigit = error "dropLastDigit not yet defined"
+dropLastDigit n = n `div` 10
 
 toDigits :: Integer -> [Integer]
-toDigits = error "toDigits not yet defined"
+toDigits n
+    | n < 1 = []
+    | otherwise = toDigits (dropLastDigit n) ++ [lastDigit n]
+
+reverseList :: [Integer] -> [Integer]
+reverseList [] = []
+reverseList (x:xs) = reverseList xs ++ [x]
 
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther = error "doubleEveryOther not yet defined"
+doubleEveryOther [] = []
+doubleEveryOther xs = (reverseList (doubleEveryOtherHelper (reverseList xs)))
+    where
+        doubleEveryOtherHelper :: [Integer] -> [Integer]
+        doubleEveryOtherHelper [] = []
+        doubleEveryOtherHelper [x] = [x]
+        doubleEveryOtherHelper (x:y:ys) = x : 2*y : (doubleEveryOtherHelper ys)
 
 sumDigits :: [Integer] -> Integer
-sumDigits = error "sumDigits not yet defined"
+sumDigits [] = 0
+sumDigits (x:xs) = sumDigitsHelper x + sumDigits xs
+    where
+        sumDigitsHelper :: Integer -> Integer
+        sumDigitsHelper n
+            | n < 10 = n
+            | otherwise = sumDigitsHelper (lastDigit n) + sumDigitsHelper (dropLastDigit n)
 
 validate :: Integer -> Bool
-validate = error "validate not yet defined"
+validate n
+    | (sumDigits (doubleEveryOther (toDigits n))) `mod` 10 == 0 = True
+    | otherwise = False
 
 --
 -- Problem 2
