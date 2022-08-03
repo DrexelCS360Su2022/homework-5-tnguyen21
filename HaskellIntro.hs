@@ -58,16 +58,23 @@ validate n
 --
 
 pow :: (a -> a) -> Int -> a -> a
-pow = error "pow not yet defined"
+pow _ 0 x = x
+pow f n x = pow f (n-1) (f x)
 
+-- hofstadter G
 g :: Integer -> Integer
-g = error "g not yet defined"
+g 0 = 0
+g n = n - (pow g 2 (n-1))
 
+-- hofstadter H
 h :: Integer -> Integer
-h = error "h not yet defined"
+h 0 = 0
+h n = n - (pow h 3 (n-1))
 
+-- family of D sequences to demonstrate partial application
 d :: Int -> Integer -> Integer
-d = error "d not yet defined"
+d i 0 = 0
+d i n = n - (pow (d i) i (n-1))
 
 --
 -- Problem 3

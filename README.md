@@ -12,6 +12,6 @@ Please let us know how much time you spent on each problem. You may enter time u
 
 Problem 1: 40m
 
-Problem 2: 0m 
+Problem 2: 20m 
 
 Problem 3: 0m
